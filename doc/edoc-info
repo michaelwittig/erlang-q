@@ -1,0 +1,4 @@
+%% encoding: UTF-8
+{application,q}.
+{packages,[]}.
+{modules,[q,q_demo_handler,q_ipcp,q_server,q_table]}.

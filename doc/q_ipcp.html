@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Module q_ipcp</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module q_ipcp</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul> Implements most parts of the Q ipc protocol specified here:
+         http://code.kx.com/wiki/Reference/q_ipcprotocol.
+<p>Copyright © 2014 Tullius Walden Bank AG</p>
+
+<p><b>Authors:</b> Michael Wittig (<a href="mailto:michael.wittig@tullius-walden.com"><tt>michael.wittig@tullius-walden.com</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2> Implements most parts of the Q ipc protocol specified here:
+         http://code.kx.com/wiki/Reference/q_ipcprotocol
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#bin_to_hexstr-1">bin_to_hexstr/1</a></td><td></td></tr>
+<tr><td valign="top"><a href="#capability-1">capability/1</a></td><td>ipc protocol capability to atom.</td></tr>
+<tr><td valign="top"><a href="#deserialize-1">deserialize/1</a></td><td>deserialize binary data.</td></tr>
+<tr><td valign="top"><a href="#deserialize_header-1">deserialize_header/1</a></td><td>deserialize binary header data.</td></tr>
+<tr><td valign="top"><a href="#endianness-1">endianness/1</a></td><td>ipc protocol endianness to atom.</td></tr>
+<tr><td valign="top"><a href="#hexstr_to_bin-1">hexstr_to_bin/1</a></td><td></td></tr>
+<tr><td valign="top"><a href="#serialize-2">serialize/2</a></td><td>serialize data.</td></tr>
+<tr><td valign="top"><a href="#serialize_boolean-1">serialize_boolean/1</a></td><td>create boolean type.</td></tr>
+<tr><td valign="top"><a href="#serialize_booleans-1">serialize_booleans/1</a></td><td>create boolean vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_byte-1">serialize_byte/1</a></td><td>create byte type.</td></tr>
+<tr><td valign="top"><a href="#serialize_bytes-1">serialize_bytes/1</a></td><td>create byte vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_char-1">serialize_char/1</a></td><td>create char type.</td></tr>
+<tr><td valign="top"><a href="#serialize_chars-1">serialize_chars/1</a></td><td>create char vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_float-1">serialize_float/1</a></td><td>create float type.</td></tr>
+<tr><td valign="top"><a href="#serialize_floats-1">serialize_floats/1</a></td><td>create float vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_generallist-1">serialize_generallist/1</a></td><td>create generallist type.</td></tr>
+<tr><td valign="top"><a href="#serialize_guid-1">serialize_guid/1</a></td><td>create guid type.</td></tr>
+<tr><td valign="top"><a href="#serialize_guids-1">serialize_guids/1</a></td><td>create guid vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_int-1">serialize_int/1</a></td><td>create int type.</td></tr>
+<tr><td valign="top"><a href="#serialize_ints-1">serialize_ints/1</a></td><td>create int vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_long-1">serialize_long/1</a></td><td>create long type.</td></tr>
+<tr><td valign="top"><a href="#serialize_longs-1">serialize_longs/1</a></td><td>create long vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_real-1">serialize_real/1</a></td><td>create real type.</td></tr>
+<tr><td valign="top"><a href="#serialize_reals-1">serialize_reals/1</a></td><td>create real vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_short-1">serialize_short/1</a></td><td>create short type.</td></tr>
+<tr><td valign="top"><a href="#serialize_shorts-1">serialize_shorts/1</a></td><td>create short vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_string-1">serialize_string/1</a></td><td>create char vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_symbol-1">serialize_symbol/1</a></td><td></td></tr>
+<tr><td valign="top"><a href="#serialize_symbols-1">serialize_symbols/1</a></td><td>create symbol vector type.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="bin_to_hexstr-1">bin_to_hexstr/1</a></h3>
+<div class="spec">
+<p><tt>bin_to_hexstr(Bin) -&gt; any()</tt></p>
+</div>
+
+<h3 class="function"><a name="capability-1">capability/1</a></h3>
+<div class="spec">
+<p><tt>capability(CapabilityCode::number()) -&gt; [atom()]</tt><br></p>
+</div><p>ipc protocol capability to atom
+ </p>
+
+<h3 class="function"><a name="deserialize-1">deserialize/1</a></h3>
+<div class="spec">
+<p><tt>deserialize(Bin::binary()) -&gt; any()</tt><br></p>
+</div><p>deserialize binary data
+ </p>
+
+<h3 class="function"><a name="deserialize_header-1">deserialize_header/1</a></h3>
+<div class="spec">
+<p><tt>deserialize_header(Bin::binary()) -&gt; {{atom(), number(), number()}, binary()}</tt><br></p>
+</div><p>deserialize binary header data
+ </p>
+
+<h3 class="function"><a name="endianness-1">endianness/1</a></h3>
+<div class="spec">
+<p><tt>endianness(EndiannessCode::number()) -&gt; big | little</tt><br></p>
+</div><p>ipc protocol endianness to atom
+ </p>
+
+<h3 class="function"><a name="hexstr_to_bin-1">hexstr_to_bin/1</a></h3>
+<div class="spec">
+<p><tt>hexstr_to_bin(S) -&gt; any()</tt></p>
+</div>
+
+<h3 class="function"><a name="serialize-2">serialize/2</a></h3>
+<div class="spec">
+<p><tt>serialize(MsgType::atom() | number(), Body::binary()) -&gt; binary()</tt><br></p>
+</div><p>serialize data
+ </p>
+
+<h3 class="function"><a name="serialize_boolean-1">serialize_boolean/1</a></h3>
+<div class="spec">
+<p><tt>serialize_boolean(Value::true | false) -&gt; binary()</tt><br></p>
+</div><p>create boolean type
+ </p>
+
+<h3 class="function"><a name="serialize_booleans-1">serialize_booleans/1</a></h3>
+<div class="spec">
+<p><tt>serialize_booleans(Values::[true | false]) -&gt; binary()</tt><br></p>
+</div><p>create boolean vector type
+ </p>
+
+<h3 class="function"><a name="serialize_byte-1">serialize_byte/1</a></h3>
+<div class="spec">
+<p><tt>serialize_byte(Byte::binary()) -&gt; binary()</tt><br></p>
+</div><p>create byte type
+ </p>
+
+<h3 class="function"><a name="serialize_bytes-1">serialize_bytes/1</a></h3>
+<div class="spec">
+<p><tt>serialize_bytes(Values::[binary()]) -&gt; binary()</tt><br></p>
+</div><p>create byte vector type
+ </p>
+
+<h3 class="function"><a name="serialize_char-1">serialize_char/1</a></h3>
+<div class="spec">
+<p><tt>serialize_char(Char::char() | null) -&gt; binary()</tt><br></p>
+</div><p>create char type
+ </p>
+
+<h3 class="function"><a name="serialize_chars-1">serialize_chars/1</a></h3>
+<div class="spec">
+<p><tt>serialize_chars(Chars::[char()] | null) -&gt; binary()</tt><br></p>
+</div><p>create char vector type
+ </p>
+
+<h3 class="function"><a name="serialize_float-1">serialize_float/1</a></h3>
+<div class="spec">
+<p><tt>serialize_float(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create float type
+ </p>
+
+<h3 class="function"><a name="serialize_floats-1">serialize_floats/1</a></h3>
+<div class="spec">
+<p><tt>serialize_floats(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create float vector type
+ </p>
+
+<h3 class="function"><a name="serialize_generallist-1">serialize_generallist/1</a></h3>
+<div class="spec">
+<p><tt>serialize_generallist(SerializedValues::[binary()]) -&gt; binary()</tt><br></p>
+</div><p>create generallist type
+ </p>
+
+<h3 class="function"><a name="serialize_guid-1">serialize_guid/1</a></h3>
+<div class="spec">
+<p><tt>serialize_guid(Bin::<a href="#type-ninary">ninary()</a> | null) -&gt; binary()</tt><br></p>
+</div><p>create guid type
+ </p>
+
+<h3 class="function"><a name="serialize_guids-1">serialize_guids/1</a></h3>
+<div class="spec">
+<p><tt>serialize_guids(Bins::[binary()]) -&gt; binary()</tt><br></p>
+</div><p>create guid vector type
+ </p>
+
+<h3 class="function"><a name="serialize_int-1">serialize_int/1</a></h3>
+<div class="spec">
+<p><tt>serialize_int(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create int type
+ </p>
+
+<h3 class="function"><a name="serialize_ints-1">serialize_ints/1</a></h3>
+<div class="spec">
+<p><tt>serialize_ints(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create int vector type
+ </p>
+
+<h3 class="function"><a name="serialize_long-1">serialize_long/1</a></h3>
+<div class="spec">
+<p><tt>serialize_long(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create long type
+ </p>
+
+<h3 class="function"><a name="serialize_longs-1">serialize_longs/1</a></h3>
+<div class="spec">
+<p><tt>serialize_longs(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create long vector type
+ </p>
+
+<h3 class="function"><a name="serialize_real-1">serialize_real/1</a></h3>
+<div class="spec">
+<p><tt>serialize_real(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create real type
+ </p>
+
+<h3 class="function"><a name="serialize_reals-1">serialize_reals/1</a></h3>
+<div class="spec">
+<p><tt>serialize_reals(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create real vector type
+ </p>
+
+<h3 class="function"><a name="serialize_short-1">serialize_short/1</a></h3>
+<div class="spec">
+<p><tt>serialize_short(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create short type
+ </p>
+
+<h3 class="function"><a name="serialize_shorts-1">serialize_shorts/1</a></h3>
+<div class="spec">
+<p><tt>serialize_shorts(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create short vector type
+ </p>
+
+<h3 class="function"><a name="serialize_string-1">serialize_string/1</a></h3>
+<div class="spec">
+<p><tt>serialize_string(String::string()) -&gt; binary()</tt><br></p>
+</div><p>create char vector type
+ </p>
+
+<h3 class="function"><a name="serialize_symbol-1">serialize_symbol/1</a></h3>
+<div class="spec">
+<p><tt>serialize_symbol(Atom) -&gt; any()</tt></p>
+</div>
+
+<h3 class="function"><a name="serialize_symbols-1">serialize_symbols/1</a></h3>
+<div class="spec">
+<p><tt>serialize_symbols(Strings::[string() | null]) -&gt; binary()</tt><br></p>
+</div><p>create symbol vector type
+ </p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Jul 3 2014, 16:30:22.</i></p>
+</body>
+</html>
