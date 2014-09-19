@@ -128,7 +128,13 @@ handle_cast(Any, State) ->
   {noreply, State}.
 
 handle_info({tcp, _, Bin}, State = #state{rest = Rest}) ->
-  {Content, NewRest} = q_ipcp:deserialize(<<Rest/binary, Bin/binary>>),
+  {Content, NewRest} = try 
+    q_ipcp:deserialize(<<Rest/binary, Bin/binary>>)
+  catch
+    ExceptionType:Reason ->
+      error_logger:error_msg("deserialize failed ~p~n", [ExceptionType, Reason]),
+      {[ExceptionType, Reason], <<>>}
+  end,
   ok = case Content of
     [<<"upd">>, Table, Data] ->
       gen_event:notify(State#state.event_mgr_ref, {q, Table, Data});
