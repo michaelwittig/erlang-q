@@ -248,6 +248,10 @@ TODO
 
 	make doc
 
+## EDoc
+
+[click me](http://htmlpreview.github.io/?https://github.com/cinovo/erlang-q/blob/master/doc/index.html)
+
 ## What is missing?
 
 * decompression of received bytes if they are compressed
