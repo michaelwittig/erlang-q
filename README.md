@@ -12,13 +12,13 @@ If you use [rebar](https://github.com/rebar/rebar) just add
 
 to your dependencies.
 
-### execute Q code
+### execute Q code as string
 
-	{ok, Pid}=q:connect(<<"localhost">>, 5000).
+	{ok, Pid} = q:connect(<<"localhost">>, 5000).
 	2 = q:execute(Pid, <<"1+1">>).
 	q:close(Pid).
 
-### execute Q functions
+### execute Q functions with params
 
 	{ok, Pid} = q:connect(<<"localhost">>, 5000).
 	15 = q:execute(Pid, <<"sum">>, q_ipcp:serialize_ints([1, 2, 3, 4, 5])).
@@ -26,8 +26,8 @@ to your dependencies.
 
 ### subscribe (kdb+tick)
 
-After you subscribe incoming data is distributed using the gen_event behaviour.
-Events are {q, Table, Data}
+After you subscribe, incoming data is distributed using the [gen_event](http://www.erlang.org/doc/man/gen_event.html) behaviour.
+Events are `{q, Table, Data}`. If you want to print the data to sysour you can use [q_demo_handler](https://github.com/cinovo/erlang-q/blob/master/src/q_demo_handler.erl) module.
 
 	{ok, Pid} = q:connect({q_demo_handler, []}, <<"localhost">>, 5000).
 	q:subscribe(Pid, <<"trade">>, <<"TEST">>).
