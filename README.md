@@ -6,9 +6,9 @@
 
 If you use [rebar](https://github.com/rebar/rebar) just add
 
-{deps, [
-	{q, ".*", {git, "git://github.com/cinovo/erlang-q.git", {tag, "v0.1.1"}}}
-]}.
+	{deps, [
+		{q, ".*", {git, "git://github.com/cinovo/erlang-q.git", {tag, "v0.1.1"}}}
+	]}.
 
 to your dependencies.
 
