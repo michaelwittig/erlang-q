@@ -14,21 +14,22 @@ to your dependencies.
 
 ### execute Q code
 
-	{ok, Pid}=q:connect(<<"localhost">>, 5010).
+	{ok, Pid}=q:connect(<<"localhost">>, 5000).
 	2 = q:execute(Pid, <<"1+1">>).
 	q:close(Pid).
 
 ### execute Q functions
 
-	{ok, Pid} = q:connect(<<"localhost">>, 5010),
+	{ok, Pid} = q:connect(<<"localhost">>, 5000).
 	15 = q:execute(Pid, <<"sum">>, q_ipcp:serialize_ints([1, 2, 3, 4, 5])).
+	q:close(Pid).
 
 ### subscribe (kdb+tick)
 
 After you subscribe incoming data is distributed using the gen_event behaviour.
 Events are {q, Table, Data}
 
-	{ok, Pid} = q:connect({q_demo_handler, []}, <<"localhost">>, 5010).
+	{ok, Pid} = q:connect({q_demo_handler, []}, <<"localhost">>, 5000).
 	q:subscribe(Pid, <<"trade">>, <<"TEST">>).
 
 ## (De)Serialization
