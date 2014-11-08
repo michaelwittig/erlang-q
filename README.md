@@ -15,13 +15,13 @@ to your dependencies.
 ### execute Q code
 
 	{ok, Pid}=q:connect(<<"localhost">>, 5010).
-	2=q:execute(Pid, <<"1+1">>).
-	q.close(Pid).
+	2 = q:execute(Pid, <<"1+1">>).
+	q:close(Pid).
 
 ### execute Q functions
 
-	{ok, Pid} = connect(<<"localhost">>, 5010),
-	15=q:execute(Pid, <<"sum">>, q_ipcp:serialize_ints([1, 2, 3, 4, 5])).
+	{ok, Pid} = q:connect(<<"localhost">>, 5010),
+	15 = q:execute(Pid, <<"sum">>, q_ipcp:serialize_ints([1, 2, 3, 4, 5])).
 
 ### subscribe (kdb+tick)
 
@@ -240,9 +240,9 @@ TODO
 
 ## Development
 
-### Compile and test
+### Run tests
 
-	make all test
+	make test
 
 ### Generate documentation
 
