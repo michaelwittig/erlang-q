@@ -6,7 +6,9 @@
 
 If you use [rebar](https://github.com/rebar/rebar) just add
 
+{deps, [
 	{q, ".*", {git, "git://github.com/cinovo/q.git", {tag, "v0.1.1"}}},
+]}.
 
 to your dependencies.
 
@@ -240,17 +242,7 @@ TODO
 
 ### Compile and test
 
-	make
-
-### Start environment
-
-Starts an erlang hell with all need options set.
-
-	make start
-
-### Release
-
-	make release
+	make all test
 
 ### Generate documentation
 

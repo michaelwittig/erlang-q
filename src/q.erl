@@ -1,6 +1,5 @@
 %%%-----------------------------------------------------------------------------
-%%% @author Michael Wittig <michael.wittig@tullius-walden.com>
-%%% @copyright 2014 Tullius Walden Bank AG
+%%% @author Michael Wittig <michael.wittig@cinovo.de>
 %%% @doc Q interfacing with Erlang
 %%% @end
 %%%-----------------------------------------------------------------------------
@@ -116,7 +115,7 @@ subscribe(Server, Table, Symbol) ->
 	gen_server:call(Server, {subscribe, Table, Symbol}).
 
 %%------------------------------------------------------------------------------
-%% @doc Subscribe to multiple table-symbol combinations like [{<<"table">>, <<"sym">>}, {<<"table">>, <<"sym">>}].
+%% @doc Subscribe to multiple table-symbol combinations like ```[{<<"table">>, <<"sym">>}, {<<"table">>, <<"sym">>}]'''.
 %%
 %% @spec subscribe(Server::pid(), Subscriptions::[any()]) -> ok | {error, Reason}
 %% @end
@@ -134,28 +133,28 @@ unsubscribe(Server, Table, Symbol) ->
 	gen_server:call(Server, {unsubscribe, Table, Symbol}).
 
 %%------------------------------------------------------------------------------
-%% Tests
+%% Integration Tests assume a running kdb+tick Process on port 5000
 %%------------------------------------------------------------------------------
-execute_q_atom_test() ->
-	{ok, Pid} = connect(<<"localhost">>, 5010),
+execute_q_atom_tes_t() ->
+	{ok, Pid} = connect(<<"localhost">>, 5000),
 	?assertEqual(2, execute(Pid, <<"1+1">>)).
 
-execute_q_vector_test() ->
-	{ok, Pid} = connect(<<"localhost">>, 5010),
+execute_q_vector_tes_t() ->
+	{ok, Pid} = connect(<<"localhost">>, 5000),
 	?assertEqual([0, 1, 2, 3, 4], execute(Pid, <<"til 5">>)).
 
-execute_fun_test() ->
-	{ok, Pid} = connect(<<"localhost">>, 5010),
+execute_fun_tes_t() ->
+	{ok, Pid} = connect(<<"localhost">>, 5000),
 	?assertEqual(15, execute(Pid, <<"sum">>, q_ipcp:serialize_ints([1, 2, 3, 4, 5]))).
 
-execute_subscribe_test() ->
-	{ok, Pid} = connect({q_demo_handler, []}, <<"localhost">>, 5010),
+execute_subscribe_tes_t() ->
+	{ok, Pid} = connect({q_demo_handler, []}, <<"localhost">>, 5000),
 	?assertEqual(ok, subscribe(Pid, <<"trade">>, <<"DAI">>)).
 
-execute_subscribes_test() ->
-	{ok, Pid} = connect({q_demo_handler, []}, <<"localhost">>, 5010),
+execute_subscribes_tes_t() ->
+	{ok, Pid} = connect({q_demo_handler, []}, <<"localhost">>, 5000),
 	?assertEqual(ok, subscribe(Pid, [{<<"trade">>, <<"DAI">>}, {<<"trade">>, <<"BMW">>}])).
 
 connect_and_close_tes_t() -> % TODO test fails because the server is correctly terminated
-	{ok, Pid} = connect(<<"localhost">>, 5010),
+	{ok, Pid} = connect(<<"localhost">>, 5000),
 	ok = close(Pid).

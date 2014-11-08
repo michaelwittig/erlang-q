@@ -20,8 +20,8 @@ clean_doc:
 release: clean doc
 	$(MAKE) ERLC_FLAGS="$(ERLC_FLAGS) -DNOTEST"
 
-test:
+test: all
 	erl -noshell -pa ebin -eval 'eunit:test("ebin",[verbose])' -s init stop
 
-start:
+start: all
 	erl -pa ebin

@@ -1,6 +1,5 @@
 %%%-----------------------------------------------------------------------------
-%%% @author Michael Wittig <michael.wittig@tullius-walden.com>
-%%% @copyright 2014 Tullius Walden Bank AG
+%%% @author Michael Wittig <michael.wittig@cinovo.de>
 %%% @doc Q table helpers.
 %%% @end
 %%%-----------------------------------------------------------------------------

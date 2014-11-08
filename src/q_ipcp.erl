@@ -1,6 +1,5 @@
 %%%-----------------------------------------------------------------------------
-%%% @author Michael Wittig <michael.wittig@tullius-walden.com>
-%%% @copyright 2014 Tullius Walden Bank AG
+%%% @author Michael Wittig <michael.wittig@cinovo.de>
 %%% @todo decompression of received bytes if they are compressed
 %%% @doc  Implements most parts of the Q ipc protocol specified here:
 %%%       http://code.kx.com/wiki/Reference/q_ipcprotocol
