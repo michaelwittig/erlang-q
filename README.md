@@ -308,6 +308,10 @@ To handle tables in Erlang you should use [q_table](https://github.com/cinovo/er
 
 NOT YET SUPPORTED
 
+## Contribution
+
+If you want to create a Pull-Request please make sure that `make test` runs without failures.
+
 ## Development
 
 ### Run tests
