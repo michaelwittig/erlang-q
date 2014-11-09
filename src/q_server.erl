@@ -44,7 +44,7 @@ init([EventMgrRef, HostRaw, Port, AuthRaw]) ->
   {ok, Sock} = gen_tcp:connect(Host, Port, ?SOCKET_OPTS, ?CONNECT_TIMEOUT),
   State = #state{sock = Sock, mode = execute, event_mgr_ref = EventMgrRef},
   ok = inet:setopts(Sock, [{active, false}]),
-  case gen_tcp:send(Sock, <<Auth/binary, 3, 0>>) of
+  case gen_tcp:send(Sock, <<Auth/binary, 1, 0>>) of
     ok ->
       case gen_tcp:recv(Sock, 1, ?RECV_TIMEOUT) of
         {ok, <<Capability:8/unsigned-integer>>} ->
