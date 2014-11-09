@@ -162,8 +162,8 @@ Keep in mind that null values in Q are deserialized to atom null in Erlang.
 
 #### Erlang => Q
 
-	456838479412547000 => 014.06.23D11:34:39.412547000
-	null => 0Np
+	q_ipcp:serialize_timestamp(456838479412547000) => 014.06.23D11:34:39.412547000
+	q_ipcp:serialize_timestamp(null) => 0Np
 
 ### month
 
@@ -174,7 +174,8 @@ Keep in mind that null values in Q are deserialized to atom null in Erlang.
 
 #### Erlang => Q
 
-NOT YET SUPPORTED
+	q_ipcp:serialize_month(168) => 2014.01m
+	q_ipcp:serialize_month(null) => 0Nm
 
 ### date
 
@@ -185,7 +186,8 @@ NOT YET SUPPORTED
 
 #### Erlang => Q
 
-NOT YET SUPPORTED
+	q_ipcp:serialize_date(5114) => 2014.01.01
+	q_ipcp:serialize_date(null) => 0Nd
 
 ### datetime
 
@@ -196,7 +198,8 @@ NOT YET SUPPORTED
 
 #### Erlang => Q
 
-NOT YET SUPPORTED
+	q_ipcp:serialize_datetime(4662535674435194874) => 2014.06.23T11:49:31.533
+	q_ipcp:serialize_datetime(null) => 0Nz
 
 ### timespan
 
@@ -207,7 +210,8 @@ NOT YET SUPPORTED
 
 #### Erlang => Q
 
-NOT YET SUPPORTED
+	q_ipcp:serialize_timespan(60000000000) => 00:01:00.000000000
+	q_ipcp:serialize_timespan(null) => 0Nn
 
 ### minute
 
@@ -218,7 +222,8 @@ NOT YET SUPPORTED
 
 #### Erlang => Q
 
-NOT YET SUPPORTED
+	q_ipcp:serialize_minute(1) => 00:01
+	q_ipcp:serialize_minute(null) => 0Nu
 
 ### second
 
@@ -229,7 +234,8 @@ NOT YET SUPPORTED
 
 #### Erlang => Q
 
-NOT YET SUPPORTED
+	q_ipcp:serialize_second(1) => 00:00:01
+	q_ipcp:serialize_second(null) => 0Nv
 
 ### time
 
@@ -240,7 +246,8 @@ NOT YET SUPPORTED
 
 #### Erlang => Q
 
-NOT YET SUPPORTED
+	q_ipcp:serialize_time(1) => 00:00:00.001
+	q_ipcp:serialize_time(null) => 0Nt
 
 ### mixed list
 
