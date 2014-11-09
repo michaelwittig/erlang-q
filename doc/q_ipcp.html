@@ -10,13 +10,11 @@
 <hr>
 
 <h1>Module q_ipcp</h1>
-<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul> Implements most parts of the Q ipc protocol specified here:
-         http://code.kx.com/wiki/Reference/q_ipcprotocol.
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>Implements the Q ipc protocol http://code.kx.com/wiki/Reference/q_ipcprotocol.
 
 <p><b>Authors:</b> Michael Wittig (<a href="mailto:michael.wittig@cinovo.de"><tt>michael.wittig@cinovo.de</tt></a>).</p>
 
-<h2><a name="description">Description</a></h2> Implements most parts of the Q ipc protocol specified here:
-         http://code.kx.com/wiki/Reference/q_ipcprotocol
+<h2><a name="description">Description</a></h2>Implements the Q ipc protocol http://code.kx.com/wiki/Reference/q_ipcprotocol
 <h2><a name="index">Function Index</a></h2>
 <table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#bin_to_hexstr-1">bin_to_hexstr/1</a></td><td></td></tr>
 <tr><td valign="top"><a href="#capability-1">capability/1</a></td><td>ipc protocol capability to atom.</td></tr>
@@ -31,6 +29,10 @@
 <tr><td valign="top"><a href="#serialize_bytes-1">serialize_bytes/1</a></td><td>create byte vector type.</td></tr>
 <tr><td valign="top"><a href="#serialize_char-1">serialize_char/1</a></td><td>create char type.</td></tr>
 <tr><td valign="top"><a href="#serialize_chars-1">serialize_chars/1</a></td><td>create char vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_date-1">serialize_date/1</a></td><td>create date type.</td></tr>
+<tr><td valign="top"><a href="#serialize_dates-1">serialize_dates/1</a></td><td>create date vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_datetime-1">serialize_datetime/1</a></td><td>create datetime type.</td></tr>
+<tr><td valign="top"><a href="#serialize_datetimes-1">serialize_datetimes/1</a></td><td>create datetime vector type.</td></tr>
 <tr><td valign="top"><a href="#serialize_float-1">serialize_float/1</a></td><td>create float type.</td></tr>
 <tr><td valign="top"><a href="#serialize_floats-1">serialize_floats/1</a></td><td>create float vector type.</td></tr>
 <tr><td valign="top"><a href="#serialize_generallist-1">serialize_generallist/1</a></td><td>create generallist type.</td></tr>
@@ -40,13 +42,25 @@
 <tr><td valign="top"><a href="#serialize_ints-1">serialize_ints/1</a></td><td>create int vector type.</td></tr>
 <tr><td valign="top"><a href="#serialize_long-1">serialize_long/1</a></td><td>create long type.</td></tr>
 <tr><td valign="top"><a href="#serialize_longs-1">serialize_longs/1</a></td><td>create long vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_minute-1">serialize_minute/1</a></td><td>create minute type.</td></tr>
+<tr><td valign="top"><a href="#serialize_minutes-1">serialize_minutes/1</a></td><td>create minute vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_month-1">serialize_month/1</a></td><td>create month type.</td></tr>
+<tr><td valign="top"><a href="#serialize_months-1">serialize_months/1</a></td><td>create month vector type.</td></tr>
 <tr><td valign="top"><a href="#serialize_real-1">serialize_real/1</a></td><td>create real type.</td></tr>
 <tr><td valign="top"><a href="#serialize_reals-1">serialize_reals/1</a></td><td>create real vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_second-1">serialize_second/1</a></td><td>create second type.</td></tr>
+<tr><td valign="top"><a href="#serialize_seconds-1">serialize_seconds/1</a></td><td>create second vector type.</td></tr>
 <tr><td valign="top"><a href="#serialize_short-1">serialize_short/1</a></td><td>create short type.</td></tr>
 <tr><td valign="top"><a href="#serialize_shorts-1">serialize_shorts/1</a></td><td>create short vector type.</td></tr>
 <tr><td valign="top"><a href="#serialize_string-1">serialize_string/1</a></td><td>create char vector type.</td></tr>
 <tr><td valign="top"><a href="#serialize_symbol-1">serialize_symbol/1</a></td><td></td></tr>
 <tr><td valign="top"><a href="#serialize_symbols-1">serialize_symbols/1</a></td><td>create symbol vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_time-1">serialize_time/1</a></td><td>create time type.</td></tr>
+<tr><td valign="top"><a href="#serialize_times-1">serialize_times/1</a></td><td>create time vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_timespan-1">serialize_timespan/1</a></td><td>create timespan type.</td></tr>
+<tr><td valign="top"><a href="#serialize_timespans-1">serialize_timespans/1</a></td><td>create timespan vector type.</td></tr>
+<tr><td valign="top"><a href="#serialize_timestamp-1">serialize_timestamp/1</a></td><td>create timestamp type.</td></tr>
+<tr><td valign="top"><a href="#serialize_timestamps-1">serialize_timestamps/1</a></td><td>create timestamp vector type.</td></tr>
 </table>
 
 <h2><a name="functions">Function Details</a></h2>
@@ -127,6 +141,30 @@
 </div><p>create char vector type
  </p>
 
+<h3 class="function"><a name="serialize_date-1">serialize_date/1</a></h3>
+<div class="spec">
+<p><tt>serialize_date(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create date type
+ </p>
+
+<h3 class="function"><a name="serialize_dates-1">serialize_dates/1</a></h3>
+<div class="spec">
+<p><tt>serialize_dates(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create date vector type
+ </p>
+
+<h3 class="function"><a name="serialize_datetime-1">serialize_datetime/1</a></h3>
+<div class="spec">
+<p><tt>serialize_datetime(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create datetime type
+ </p>
+
+<h3 class="function"><a name="serialize_datetimes-1">serialize_datetimes/1</a></h3>
+<div class="spec">
+<p><tt>serialize_datetimes(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create datetime vector type
+ </p>
+
 <h3 class="function"><a name="serialize_float-1">serialize_float/1</a></h3>
 <div class="spec">
 <p><tt>serialize_float(Number::number() | null) -&gt; binary()</tt><br></p>
@@ -181,6 +219,30 @@
 </div><p>create long vector type
  </p>
 
+<h3 class="function"><a name="serialize_minute-1">serialize_minute/1</a></h3>
+<div class="spec">
+<p><tt>serialize_minute(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create minute type
+ </p>
+
+<h3 class="function"><a name="serialize_minutes-1">serialize_minutes/1</a></h3>
+<div class="spec">
+<p><tt>serialize_minutes(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create minute vector type
+ </p>
+
+<h3 class="function"><a name="serialize_month-1">serialize_month/1</a></h3>
+<div class="spec">
+<p><tt>serialize_month(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create month type
+ </p>
+
+<h3 class="function"><a name="serialize_months-1">serialize_months/1</a></h3>
+<div class="spec">
+<p><tt>serialize_months(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create month vector type
+ </p>
+
 <h3 class="function"><a name="serialize_real-1">serialize_real/1</a></h3>
 <div class="spec">
 <p><tt>serialize_real(Number::number() | null) -&gt; binary()</tt><br></p>
@@ -191,6 +253,18 @@
 <div class="spec">
 <p><tt>serialize_reals(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
 </div><p>create real vector type
+ </p>
+
+<h3 class="function"><a name="serialize_second-1">serialize_second/1</a></h3>
+<div class="spec">
+<p><tt>serialize_second(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create second type
+ </p>
+
+<h3 class="function"><a name="serialize_seconds-1">serialize_seconds/1</a></h3>
+<div class="spec">
+<p><tt>serialize_seconds(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create second vector type
  </p>
 
 <h3 class="function"><a name="serialize_short-1">serialize_short/1</a></h3>
@@ -221,9 +295,45 @@
 <p><tt>serialize_symbols(Strings::[string() | null]) -&gt; binary()</tt><br></p>
 </div><p>create symbol vector type
  </p>
+
+<h3 class="function"><a name="serialize_time-1">serialize_time/1</a></h3>
+<div class="spec">
+<p><tt>serialize_time(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create time type
+ </p>
+
+<h3 class="function"><a name="serialize_times-1">serialize_times/1</a></h3>
+<div class="spec">
+<p><tt>serialize_times(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create time vector type
+ </p>
+
+<h3 class="function"><a name="serialize_timespan-1">serialize_timespan/1</a></h3>
+<div class="spec">
+<p><tt>serialize_timespan(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create timespan type
+ </p>
+
+<h3 class="function"><a name="serialize_timespans-1">serialize_timespans/1</a></h3>
+<div class="spec">
+<p><tt>serialize_timespans(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create timespan vector type
+ </p>
+
+<h3 class="function"><a name="serialize_timestamp-1">serialize_timestamp/1</a></h3>
+<div class="spec">
+<p><tt>serialize_timestamp(Number::number() | null) -&gt; binary()</tt><br></p>
+</div><p>create timestamp type
+ </p>
+
+<h3 class="function"><a name="serialize_timestamps-1">serialize_timestamps/1</a></h3>
+<div class="spec">
+<p><tt>serialize_timestamps(Numbers::[number() | null]) -&gt; binary()</tt><br></p>
+</div><p>create timestamp vector type
+ </p>
 <hr>
 
 <div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
-<p><i>Generated by EDoc, Nov 8 2014, 15:16:59.</i></p>
+<p><i>Generated by EDoc, Nov 9 2014, 14:56:15.</i></p>
 </body>
 </html>

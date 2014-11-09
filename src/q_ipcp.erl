@@ -363,7 +363,7 @@ serialize_minute(Number) -> serialize_body(-17, <<Number:32/little-signed-intege
 %%------------------------------------------------------------------------------
 %% @doc create minute vector type
 %%
-%% @spec serialize_dates(Numbers::[number() | null]) -> binary()
+%% @spec serialize_minutes(Numbers::[number() | null]) -> binary()
 %% @end
 %%------------------------------------------------------------------------------
 serialize_minutes(Numbers) when is_list(Numbers) ->
