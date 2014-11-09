@@ -7,7 +7,7 @@
 If you use [rebar](https://github.com/rebar/rebar) just add
 
 	{deps, [
-		{q, ".*", {git, "git://github.com/cinovo/erlang-q.git", {tag, "v0.1.1"}}}
+		{q, ".*", {git, "git://github.com/cinovo/erlang-q.git", {tag, "v0.1.2"}}}
 	]}.
 
 to your dependencies.
