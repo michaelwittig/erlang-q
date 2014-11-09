@@ -6,9 +6,11 @@
 
 If you use [rebar](https://github.com/rebar/rebar) just add
 
-	{deps, [
-		{q, ".*", {git, "git://github.com/cinovo/erlang-q.git", {tag, "v0.1.2"}}}
-	]}.
+```erlang
+{deps, [
+	{q, ".*", {git, "git://github.com/cinovo/erlang-q.git", {tag, "v0.1.2"}}}
+]}.
+```
 
 to your dependencies.
 
@@ -16,23 +18,29 @@ A Q connection in Erlang is a [gen_server](http://www.erlang.org/doc/man/gen_ser
 
 ### execute Q code as string
 
-	{ok, Pid} = q:connect(<<"localhost">>, 5000).
-	2 = q:execute(Pid, <<"1+1">>).
-	q:close(Pid).
+```erlang
+{ok, Pid} = q:connect(<<"localhost">>, 5000).
+2 = q:execute(Pid, <<"1+1">>).
+q:close(Pid).
+```
 
 ### execute Q functions with params
 
-	{ok, Pid} = q:connect(<<"localhost">>, 5000).
-	15 = q:execute(Pid, <<"sum">>, q_ipcp:serialize_ints([1, 2, 3, 4, 5])).
-	q:close(Pid).
+```erlang
+{ok, Pid} = q:connect(<<"localhost">>, 5000).
+15 = q:execute(Pid, <<"sum">>, q_ipcp:serialize_ints([1, 2, 3, 4, 5])).
+q:close(Pid).
+```
 
 ### subscribe (kdb+tick)
 
 After you subscribe, incoming data is distributed using the [gen_event](http://www.erlang.org/doc/man/gen_event.html) behaviour.
 Events are `{q, Table, Data}`. If you want to print the data to sysour you can use [q_demo_handler](https://github.com/cinovo/erlang-q/blob/master/src/q_demo_handler.erl) module.
 
-	{ok, Pid} = q:connect({q_demo_handler, []}, <<"localhost">>, 5000).
-	q:subscribe(Pid, <<"trade">>, <<"TEST">>).
+```erlang
+{ok, Pid} = q:connect({q_demo_handler, []}, <<"localhost">>, 5000).
+q:subscribe(Pid, <<"trade">>, <<"TEST">>).
+```
 
 ## (De)Serialization
 
