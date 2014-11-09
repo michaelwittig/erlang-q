@@ -1,6 +1,6 @@
 [![Build Status](https://secure.travis-ci.org/cinovo/erlang-q.png)](http://travis-ci.org/cinovo/erlang-q)
 
-# Q interfacing with Erlang
+# Q interfacing with Erlang/OTP
 
 ## Usage
 
@@ -11,6 +11,8 @@ If you use [rebar](https://github.com/rebar/rebar) just add
 	]}.
 
 to your dependencies.
+
+A Q connection in Erlang is a [gen_server](http://www.erlang.org/doc/man/gen_server.html).
 
 ### execute Q code as string
 
