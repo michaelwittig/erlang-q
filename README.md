@@ -155,7 +155,15 @@ Keep in mind that null values in Q are deserialized to atom null in Erlang.
 
 #### timestamp
 
-TODO
+#### Q => Erlang
+
+	2014.06.23D11:34:39.412547000 => 456838479412547000
+	0Np => null
+
+#### Erlang => Q
+
+	456838479412547000 => 014.06.23D11:34:39.412547000
+	null => 0Np
 
 ### month
 
@@ -192,19 +200,47 @@ NOT YET SUPPORTED
 
 ### timespan
 
-TODO
+#### Q => Erlang
+
+	00:01:00.000000000 => 60000000000
+	0Nn => null
+
+#### Erlang => Q
+
+NOT YET SUPPORTED
 
 ### minute
 
-TODO
+#### Q => Erlang
+
+	00:01 => 1
+	0Nu => null
+
+#### Erlang => Q
+
+NOT YET SUPPORTED
 
 ### second
 
-TODO
+#### Q => Erlang
+
+	00:00:01 => 1
+	0Nv => null
+
+#### Erlang => Q
+
+NOT YET SUPPORTED
 
 ### time
 
-TODO
+#### Q => Erlang 
+
+	00:00:00.001 => 1
+	0Nt => null
+
+#### Erlang => Q
+
+NOT YET SUPPORTED
 
 ### mixed list
 
@@ -221,7 +257,7 @@ TODO
 
 #### Q => Erlang
 
-The items of a list are serialized like described in the type.
+The items of a list are deserialized like described in the type.
 
 	(1i;2i;3i) => [1, 2, 3]
 
@@ -233,11 +269,27 @@ Each `q_ipcp:serialize_TYPE(VALUE)` has a counterpart for lists  `q_ipcp:seriali
 
 ### dict
 
-TODO
+Each key value pair is represented as a tuple `{Key, Value}`. The keys are values of a dict are deserialized like described in the type.
+
+#### Q => Erlang
+
+	(`a`b)!(2 3) => [{<<"a">>, 2}, {<<"b">>, 3}]
+
+#### Erlang => Q
+
+NOT YET SUPPORTED
 
 ### table
 
-TODO
+To handle tables in Erlang you should use [q_table](https://github.com/cinovo/erlang-q/blob/master/src/q_table.erl) module.
+
+#### Q => Erlang
+
+	([] a:enlist 2; b:enlist 3) => [{<<"a">>, [2]}, {<<"b">>, [3]}]
+
+#### Erlang => Q
+
+NOT YET SUPPORTED
 
 ## Development
 
@@ -255,4 +307,6 @@ TODO
 
 ## What is missing?
 
+* time types helper
 * decompression of received bytes if they are compressed
+* simple Erlang (de)serialization

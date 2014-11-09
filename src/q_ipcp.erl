@@ -1,8 +1,7 @@
 %%%-----------------------------------------------------------------------------
 %%% @author Michael Wittig <michael.wittig@cinovo.de>
 %%% @todo decompression of received bytes if they are compressed
-%%% @doc  Implements most parts of the Q ipc protocol specified here:
-%%%       http://code.kx.com/wiki/Reference/q_ipcprotocol
+%%% @doc Implements the Q ipc protocol http://code.kx.com/wiki/Reference/q_ipcprotocol
 %%% @end
 %%%-----------------------------------------------------------------------------
 -module(q_ipcp).
@@ -22,6 +21,14 @@
 -export([serialize_float/1, serialize_floats/1]).
 -export([serialize_char/1, serialize_chars/1, serialize_string/1]).
 -export([serialize_symbol/1, serialize_symbols/1]).
+-export([serialize_timestamp/1, serialize_timestamps/1]).
+-export([serialize_month/1, serialize_months/1]).
+-export([serialize_date/1, serialize_dates/1]).
+-export([serialize_datetime/1, serialize_datetimes/1]).
+-export([serialize_timespan/1, serialize_timespans/1]).
+-export([serialize_minute/1, serialize_minutes/1]).
+-export([serialize_second/1, serialize_seconds/1]).
+-export([serialize_time/1, serialize_times/1]).
 -export([serialize_generallist/1]).
 -export([capability/1, endianness/1]).
 -export([bin_to_hexstr/1,hexstr_to_bin/1]).
@@ -254,14 +261,149 @@ serialize_symbol(String) when is_list(String) ->
 serialize_symbols(Strings) when is_list(Strings) ->
   serialize_vector(11, Strings, fun serialize_symbol/1).
 
-% TODO serialize_timestamp() -> -12.
-% TODO serialize_month(YYYY, MM) -> -13.
-% TODO serialize_date(YYYY, MM, DD) -> -14.
-% TODO serialize_datetime() -> -15.
-% TODO serialize_timespan() -> -16.
-% TODO serialize_minute(HH, MM) -> -17.
-% TODO serialize_second(HH, MM, SS) -> -18.
-% TODO serialize_time(HH, MM, SS, ZZZ) -> -19.
+%%------------------------------------------------------------------------------
+%% @doc create timestamp type
+%%
+%% @spec serialize_timestamp(Number::number() | null) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_timestamp(null) -> serialize_body(-12, <<-9223372036854775808:64/little-signed-integer>>);
+serialize_timestamp(Number) -> serialize_body(-12, <<Number:64/little-signed-integer>>).
+
+%%------------------------------------------------------------------------------
+%% @doc create timestamp vector type
+%%
+%% @spec serialize_timestamps(Numbers::[number() | null]) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_timestamps(Numbers) when is_list(Numbers) ->
+  serialize_vector(12, Numbers, fun serialize_timestamp/1).
+
+%%------------------------------------------------------------------------------
+%% @doc create month type
+%%
+%% @spec serialize_month(Number::number() | null) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_month(null) -> serialize_body(-13, <<-2147483648:32/little-signed-integer>>);
+serialize_month(Number) -> serialize_body(-13, <<Number:32/little-signed-integer>>).
+
+%%------------------------------------------------------------------------------
+%% @doc create month vector type
+%%
+%% @spec serialize_months(Numbers::[number() | null]) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_months(Numbers) when is_list(Numbers) ->
+  serialize_vector(13, Numbers, fun serialize_month/1).
+
+%%------------------------------------------------------------------------------
+%% @doc create date type
+%%
+%% @spec serialize_date(Number::number() | null) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_date(null) -> serialize_body(-14, <<-2147483648:32/little-signed-integer>>);
+serialize_date(Number) -> serialize_body(-14, <<Number:32/little-signed-integer>>).
+
+%%------------------------------------------------------------------------------
+%% @doc create date vector type
+%%
+%% @spec serialize_dates(Numbers::[number() | null]) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_dates(Numbers) when is_list(Numbers) ->
+  serialize_vector(14, Numbers, fun serialize_date/1).
+
+%%------------------------------------------------------------------------------
+%% @doc create datetime type
+%%
+%% @spec serialize_datetime(Number::number() | null) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_datetime(null) -> serialize_body(-15, <<-2251799813685248:64/little-signed-integer>>);
+serialize_datetime(Number) -> serialize_body(-15, <<Number:64/little-signed-integer>>).
+
+%%------------------------------------------------------------------------------
+%% @doc create datetime vector type
+%%
+%% @spec serialize_datetimes(Numbers::[number() | null]) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_datetimes(Numbers) when is_list(Numbers) ->
+  serialize_vector(15, Numbers, fun serialize_datetime/1).
+
+%%------------------------------------------------------------------------------
+%% @doc create timespan type
+%%
+%% @spec serialize_timespan(Number::number() | null) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_timespan(null) -> serialize_body(-16, <<-9223372036854775808:64/little-signed-integer>>);
+serialize_timespan(Number) -> serialize_body(-16, <<Number:64/little-signed-integer>>).
+
+%%------------------------------------------------------------------------------
+%% @doc create timespan vector type
+%%
+%% @spec serialize_timespans(Numbers::[number() | null]) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_timespans(Numbers) when is_list(Numbers) ->
+  serialize_vector(16, Numbers, fun serialize_timespan/1).
+
+%%------------------------------------------------------------------------------
+%% @doc create minute type
+%%
+%% @spec serialize_minute(Number::number() | null) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_minute(null) -> serialize_body(-17, <<-2147483648:32/little-signed-integer>>);
+serialize_minute(Number) -> serialize_body(-17, <<Number:32/little-signed-integer>>).
+
+%%------------------------------------------------------------------------------
+%% @doc create minute vector type
+%%
+%% @spec serialize_dates(Numbers::[number() | null]) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_minutes(Numbers) when is_list(Numbers) ->
+  serialize_vector(17, Numbers, fun serialize_minute/1).
+
+%%------------------------------------------------------------------------------
+%% @doc create second type
+%%
+%% @spec serialize_second(Number::number() | null) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_second(null) -> serialize_body(-18, <<-2147483648:32/little-signed-integer>>);
+serialize_second(Number) -> serialize_body(-18, <<Number:32/little-signed-integer>>).
+
+%%------------------------------------------------------------------------------
+%% @doc create second vector type
+%%
+%% @spec serialize_seconds(Numbers::[number() | null]) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_seconds(Numbers) when is_list(Numbers) ->
+  serialize_vector(18, Numbers, fun serialize_second/1).
+
+%%------------------------------------------------------------------------------
+%% @doc create time type
+%%
+%% @spec serialize_time(Number::number() | null) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_time(null) -> serialize_body(-19, <<-2147483648:32/little-signed-integer>>);
+serialize_time(Number) -> serialize_body(-19, <<Number:32/little-signed-integer>>).
+
+%%------------------------------------------------------------------------------
+%% @doc create time vector type
+%%
+%% @spec serialize_times(Numbers::[number() | null]) -> binary()
+%% @end
+%%------------------------------------------------------------------------------
+serialize_times(Numbers) when is_list(Numbers) ->
+  serialize_vector(19, Numbers, fun serialize_time/1).
 
 %%------------------------------------------------------------------------------
 %% @doc create generallist type
@@ -743,10 +885,14 @@ serialize_symbol_length5_little_test() -> % `abcde
   ?assertEqual(bin_to_hexstr(serialize(async, serialize_symbol(<<"abcde">>))), "010000000f000000f5616263646500"),
   ?assertEqual(bin_to_hexstr(serialize(async, serialize_symbol(abcde))), "010000000f000000f5616263646500").
 
-deserialize_timestamp_little_test() ->
+deserialize_timestamp_little_test() -> % 2014.06.23D11:34:39.412547000
   ?assertEqual({456838479412547000, <<>>}, deserialize(hexstr_to_bin("0100000011000000f4b84d1d352d045706"))).
 deserialize_timestamp_null_little_test() -> % 0Np
   ?assertEqual({null, <<>>}, deserialize(hexstr_to_bin("0100000011000000f40000000000000080"))).
+serialize_timestamp_little_test() -> % 2014.06.23D11:34:39.412547000
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_timestamp(456838479412547000))), "0100000011000000f4b84d1d352d045706").
+serialize_timestamp_null_little_test() -> % 0Np
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_timestamp(null))), "0100000011000000f40000000000000080").
 
 deserialize_month_201401_little_test() -> % 2014.01m
   ?assertEqual({168, <<>>}, deserialize(hexstr_to_bin("010000000d000000f3a8000000"))).
@@ -754,6 +900,12 @@ deserialize_month_null_little_test() -> % 0Nm
   ?assertEqual({null, <<>>}, deserialize(hexstr_to_bin("010000000d000000f300000080"))).
 deserialize_month_199501_little_test() -> % 1995.01m
   ?assertEqual({-60, <<>>}, deserialize(hexstr_to_bin("010000000d000000f3c4ffffff"))).
+serialize_month_201401_little_test() -> % 2014.01m
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_month(168))), "010000000d000000f3a8000000").
+serialize_month_null_little_test() -> % 0Nm
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_month(null))), "010000000d000000f300000080").
+serialize_month_199501_little_test() -> % 1995.01m
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_month(-60))), "010000000d000000f3c4ffffff").
 
 deserialize_date_20140101_little_test() -> % 2014.01.01
   ?assertEqual({5114, <<>>}, deserialize(hexstr_to_bin("010000000d000000f2fa130000"))).
@@ -761,31 +913,57 @@ deserialize_date_null_little_test() -> % 0Nd
   ?assertEqual({null, <<>>}, deserialize(hexstr_to_bin("010000000d000000f200000080"))).
 deserialize_date_19950101_little_test() -> % 1995.01.01
   ?assertEqual({-1826, <<>>}, deserialize(hexstr_to_bin("010000000d000000f2def8ffff"))).
+serialize_date_20140101_little_test() -> % 2014.01.01
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_date(5114))), "010000000d000000f2fa130000").
+serialize_date_null_little_test() -> % 0Nd
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_date(null))), "010000000d000000f200000080").
+serialize_date_19950101_little_test() -> % 1995.01.01
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_date(-1826))), "010000000d000000f2def8ffff").
 
 deserialize_datetime_little_test() -> % 2014.06.23T11:49:31.533
   ?assertEqual({4662535674435194874, <<>>}, deserialize(hexstr_to_bin("0100000011000000f1facf4b237ea7b440"))).
 deserialize_datetime_null_little_test() -> % 0Nz
   ?assertEqual({null, <<>>}, deserialize(hexstr_to_bin("0100000011000000f1000000000000f8ff"))).
+serialize_datetime_little_test() -> % 2014.06.23T11:49:31.533
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_datetime(4662535674435194874))), "0100000011000000f1facf4b237ea7b440").
+serialize_datetime_null_little_test() -> % 0Nz
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_datetime(null))), "0100000011000000f1000000000000f8ff").
 
 deserialize_timespan_little_test() -> % 00:01:00.000000000
   ?assertEqual({60000000000, <<>>}, deserialize(hexstr_to_bin("0100000011000000f0005847f80d000000"))).
 deserialize_timespan_null_little_test() -> % 0Nn
   ?assertEqual({null, <<>>}, deserialize(hexstr_to_bin("0100000011000000f00000000000000080"))).
+serialize_timespan_little_test() -> % 00:01:00.000000000
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_timespan(60000000000))), "0100000011000000f0005847f80d000000").
+serialize_timespan_null_little_test() -> % 0Nn
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_timespan(null))), "0100000011000000f00000000000000080").
 
 deserialize_minute_little_test() -> % 00:01
   ?assertEqual({1, <<>>}, deserialize(hexstr_to_bin("010000000d000000ef01000000"))).
 deserialize_minute_null_little_test() -> % 0Nu
   ?assertEqual({null, <<>>}, deserialize(hexstr_to_bin("010000000d000000ef00000080"))).
+serialize_minute_little_test() -> % 00:01
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_minute(1))), "010000000d000000ef01000000").
+serialize_minute_null_little_test() -> % 0Nu
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_minute(null))), "010000000d000000ef00000080").
 
 deserialize_second_little_test() -> % 00:00:01
   ?assertEqual({1, <<>>}, deserialize(hexstr_to_bin("010000000d000000ee01000000"))).
 deserialize_second_null_little_test() -> % 0Nv
   ?assertEqual({null, <<>>}, deserialize(hexstr_to_bin("010000000d000000ee00000080"))).
+serialize_second_little_test() -> % 00:00:01
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_second(1))), "010000000d000000ee01000000").
+serialize_second_null_little_test() -> % 0Nv
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_second(null))), "010000000d000000ee00000080").
 
 deserialize_time_little_test() -> % 00:00:00.001
   ?assertEqual({1, <<>>}, deserialize(hexstr_to_bin("010000000d000000ed01000000"))).
 deserialize_time_null_little_test() -> % 0Nt
   ?assertEqual({null, <<>>}, deserialize(hexstr_to_bin("010000000d000000ed00000080"))).
+serialize_time_little_test() -> % 00:00:00.001
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_time(1))), "010000000d000000ed01000000").
+serialize_time_null_little_test() -> % 0Nt
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_time(null))), "010000000d000000ed00000080").
 
 deserialize_boolean_vector_little_test() ->
   ?assertEqual({[true, false], <<>>}, deserialize(hexstr_to_bin("01000000100000000100020000000100"))).
@@ -845,27 +1023,43 @@ serialize_symbol_vector_little_test() ->
 
 deserialize_timestamp_vector_little_test() -> % (2014.01.01D12:00:00.000000000;2014.01.02D12:00:00.000000000;2014.01.03D12:00:00.000000000)
   ?assertEqual({[441892800000000000, 441979200000000000, 442065600000000000], <<>>}, deserialize(hexstr_to_bin("01000000260000000c00030000000080cd0c29eb210600801c9ebd39220600806b2f52882206"))).
+serialize_timestamp_vector_little_test() -> % (2014.01.01D12:00:00.000000000;2014.01.02D12:00:00.000000000;2014.01.03D12:00:00.000000000)
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_timestamps([441892800000000000, 441979200000000000, 442065600000000000]))), "01000000260000000c00030000000080cd0c29eb210600801c9ebd39220600806b2f52882206").
 
 deserialize_month_vector_little_test() -> % (1995.01m;1995.02m;1995.03m)
   ?assertEqual({[-60,-59, -58], <<>>}, deserialize(hexstr_to_bin("010000001a0000000d0003000000c4ffffffc5ffffffc6ffffff"))).
+serialize_month_vector_little_test() -> % (1995.01m;1995.02m;1995.03m)
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_months([-60,-59, -58]))), "010000001a0000000d0003000000c4ffffffc5ffffffc6ffffff").
 
 deserialize_date_vector_little_test() -> % (2014.01.01;2014.01.02;2014.01.03)
   ?assertEqual({[5114, 5115, 5116], <<>>}, deserialize(hexstr_to_bin("010000001a0000000e0003000000fa130000fb130000fc130000"))).
+serialize_date_vector_little_test() -> % (2014.01.01;2014.01.02;2014.01.03)
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_dates([5114, 5115, 5116]))), "010000001a0000000e0003000000fa130000fb130000fc130000").
 
 deserialize_datetime_vector_little_test() -> % (2014.06.23T11:49:31.533;2014.06.23T11:49:31.534;2014.06.23T11:49:31.535)
   ?assertEqual({[4662535674435194874,4662535674435207600, 4662535674435220326], <<>>}, deserialize(hexstr_to_bin("01000000260000000f0003000000facf4b237ea7b440b0014c237ea7b44066334c237ea7b440"))).
+serialize_datetime_vector_little_test() -> % (2014.06.23T11:49:31.533;2014.06.23T11:49:31.534;2014.06.23T11:49:31.535)
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_datetimes([4662535674435194874,4662535674435207600, 4662535674435220326]))), "01000000260000000f0003000000facf4b237ea7b440b0014c237ea7b44066334c237ea7b440").
 
 deserialize_timespan_vector_little_test() -> % (00:01:00.000000000;00:02:00.000000000;00:03:00.000000000)
   ?assertEqual({[60000000000, 120000000000, 180000000000], <<>>}, deserialize(hexstr_to_bin("0100000026000000100003000000005847f80d00000000b08ef01b0000000008d6e829000000"))).
+serialize_timespan_vector_little_test() -> % (00:01:00.000000000;00:02:00.000000000;00:03:00.000000000)
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_timespans([60000000000, 120000000000, 180000000000]))), "0100000026000000100003000000005847f80d00000000b08ef01b0000000008d6e829000000").
 
 deserialize_minute_vector_little_test() -> % (00:01;00:02;00:03)
   ?assertEqual({[1, 2, 3], <<>>}, deserialize(hexstr_to_bin("010000001a000000110003000000010000000200000003000000"))).
+serialize_minute_vector_little_test() -> % (00:01;00:02;00:03)
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_minutes([1, 2, 3]))), "010000001a000000110003000000010000000200000003000000").
 
 deserialize_second_vector_little_test() -> % (00:00:01;00:00:02;00:00:03)
   ?assertEqual({[1, 2, 3], <<>>}, deserialize(hexstr_to_bin("010000001a000000120003000000010000000200000003000000"))).
+serialize_second_vector_little_test() -> % (00:00:01;00:00:02;00:00:03)
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_seconds([1, 2, 3]))), "010000001a000000120003000000010000000200000003000000").
 
 deserialize_time_vector_little_test() -> % (00:00:00.001;00:00:00.002;00:00:00.003)
   ?assertEqual({[1, 2, 3], <<>>}, deserialize(hexstr_to_bin("010000001a000000130003000000010000000200000003000000"))).
+serialize_time_vector_little_test() -> % (00:00:00.001;00:00:00.002;00:00:00.003)
+  ?assertEqual(bin_to_hexstr(serialize(async, serialize_times([1, 2, 3]))), "010000001a000000130003000000010000000200000003000000").
 
 deserialize_generallist_with_vectors_little_test() -> % `byte$enlist til 5
   ?assertEqual({[[<<0>>, <<1>>, <<2>>, <<3>>, <<4>>]], <<>>}, deserialize(hexstr_to_bin("01000000190000000000010000000400050000000001020304"))).
@@ -876,7 +1070,7 @@ serialize_generallist_with_vectors_little_test() -> % `byte$enlist til 5
 serialize_generallist_with_atoms_little_test() -> % (1l;1b;`a)
   ?assertEqual(bin_to_hexstr(serialize(async, serialize_generallist([serialize_long(1), serialize_boolean(true), serialize_symbol(a)]))), "010000001c000000000003000000f90100000000000000ff01f56100").
 
-deserialize_dictionary_with_atom_values_little_test() ->
+deserialize_dictionary_with_atom_values_little_test() -> % (`a`b)!(2 3)
   ?assertEqual({[{<<"a">>, 2}, {<<"b">>, 3}], <<>>}, deserialize(hexstr_to_bin("0100000021000000630b0002000000610062000600020000000200000003000000"))).
 deserialize_dictionary_with_atom_values2_little_test() -> % (`abc`def)!(1 2)
   ?assertEqual({[{<<"abc">>, 1}, {<<"def">>, 2}], <<>>}, deserialize(hexstr_to_bin("010000002d000000630b0002000000616263006465660007000200000001000000000000000200000000000000"))).
