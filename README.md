@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/cinovo/erlang-q.png)](http://travis-ci.org/cinovo/erlang-q)
+[![Build Status](https://secure.travis-ci.org/michaelwittig/erlang-q.png)](http://travis-ci.org/michaelwittig/erlang-q)
 
 # Q interfacing with Erlang/OTP
 
@@ -8,7 +8,7 @@ If you use [rebar](https://github.com/rebar/rebar) just add
 
 ```erlang
 {deps, [
-	{q, ".*", {git, "git://github.com/cinovo/erlang-q.git", {tag, "v0.1.2"}}}
+	{q, ".*", {git, "git://github.com/michaelwittig/erlang-q.git", {tag, "v0.1.2"}}}
 ]}.
 ```
 
@@ -35,7 +35,7 @@ q:close(Pid).
 ### subscribe (kdb+tick)
 
 After you subscribe, incoming data is distributed using the [gen_event](http://www.erlang.org/doc/man/gen_event.html) behaviour.
-Events are `{q, Table, Data}`. If you want to print the data to sysour you can use [q_demo_handler](https://github.com/cinovo/erlang-q/blob/master/src/q_demo_handler.erl) module.
+Events are `{q, Table, Data}`. If you want to print the data to sysour you can use [q_demo_handler](https://github.com/michaelwittig/erlang-q/blob/master/src/q_demo_handler.erl) module.
 
 ```erlang
 {ok, Pid} = q:connect({q_demo_handler, []}, <<"localhost">>, 5000).
@@ -298,7 +298,7 @@ NOT YET SUPPORTED
 
 ### table
 
-To handle tables in Erlang you should use [q_table](https://github.com/cinovo/erlang-q/blob/master/src/q_table.erl) module.
+To handle tables in Erlang you should use [q_table](https://github.com/michaelwittig/erlang-q/blob/master/src/q_table.erl) module.
 
 #### Q => Erlang
 
@@ -324,7 +324,7 @@ If you want to create a Pull-Request please make sure that `make test` runs with
 
 ## EDoc
 
-[click me](http://htmlpreview.github.io/?https://github.com/cinovo/erlang-q/blob/master/doc/index.html)
+[click me](http://htmlpreview.github.io/?https://github.com/michaelwittig/erlang-q/blob/master/doc/index.html)
 
 ## What is missing?
 
