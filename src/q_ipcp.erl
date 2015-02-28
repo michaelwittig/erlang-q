@@ -1,5 +1,5 @@
 %%%-----------------------------------------------------------------------------
-%%% @author Michael Wittig <michael.wittig@cinovo.de>
+%%% @author Michael Wittig <post@michaelwittig.info>
 %%% @todo decompression of received bytes if they are compressed
 %%% @doc Implements the Q ipc protocol http://code.kx.com/wiki/Reference/q_ipcprotocol
 %%% @end

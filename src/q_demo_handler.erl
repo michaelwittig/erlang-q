@@ -1,5 +1,5 @@
 %%%-----------------------------------------------------------------------------
-%%% @author Michael Wittig <michael.wittig@cinovo.de>
+%%% @author Michael Wittig <post@michaelwittig.info>
 %%% @doc Demo gen_event callback implementation.
 %%% @end
 %%%-----------------------------------------------------------------------------
