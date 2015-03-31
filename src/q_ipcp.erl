@@ -812,11 +812,11 @@ serialize_short_null_little_test() -> % 0Nh
 
 deserialize_integer_little_test() -> % 1i
   ?assertEqual({1, <<>>}, deserialize(hexstr_to_bin("010000000d000000fa01000000"))).
-deserialize_integer_null_little_test() -> % oNi
+deserialize_integer_null_little_test() -> % 0Ni
   ?assertEqual({null, <<>>}, deserialize(hexstr_to_bin("010000000d000000fa00000080"))).
 serialize_integer_little_test() -> % 1i
   ?assertEqual(bin_to_hexstr(serialize(async, serialize_int(1))), "010000000d000000fa01000000").
-serialize_integer_null_little_test() -> % oNi
+serialize_integer_null_little_test() -> % 0Ni
   ?assertEqual(bin_to_hexstr(serialize(async, serialize_int(null))), "010000000d000000fa00000080").
 
 deserialize_long_little_test() -> % 1j
